@@ -2,7 +2,17 @@ import { createConnection } from "typeorm"
 //typeorm database connection fn. initiated in app.ts
 export const connectDatabase = async () => {
   try {
-    await createConnection();
+    'mysql://:@/?reconnect=true'
+    await createConnection({
+      type: "mysql",
+      host: "eu-cdbr-west-02.cleardb.net",
+      username: 'b7246249f2a0c6',
+      password: 'a47d2dec',
+      database: 'heroku_fe0dfb9b28df509',
+      entities: [
+        "src/entity/**/*.ts"
+      ]
+    });
     console.log('Database connected')
   } catch (err) {
     console.log(err)
