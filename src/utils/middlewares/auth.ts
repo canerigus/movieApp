@@ -3,7 +3,7 @@ import { RequestHandler } from 'express';
 
 //generating JWT token function.
 export const generateAccessToken = (user: Object) => {
-	return jwt.sign(user, process.env.ACCESS_TOKEN_KEY, { expiresIn: '5m' });
+	return jwt.sign(user, process.env.ACCESS_TOKEN_KEY, { expiresIn: '1d' });
 };
 
 //jwt token authentication function.
