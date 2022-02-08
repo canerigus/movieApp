@@ -12,7 +12,7 @@ export class User extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({nullable:true, unique: true, default:"anonymous"})
+    @Column({nullable:true, unique: true})
     username: string;
 
     @Column({nullable:true, unique: true})

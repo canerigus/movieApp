@@ -11,7 +11,7 @@ export class Review extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({default: 'review default'})
+    @Column({nullable:false})
     body: string;
 
     @Column({ nullable: true, default: 0})

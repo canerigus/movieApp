@@ -9,22 +9,22 @@ export class Movie extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({default: 'movie Title'})
+    @Column({nullable:false})
     title: string;
 
-    @Column({default: 'movie Year'})
+    @Column({nullable:false})
     year: string;
     
-    @Column({default: 'https://static.wikia.nocookie.net/disney/images/1/1c/Dinosaur_Url-disneyscreencaps_com-7324.jpg/revision/latest?cb=20110730154056'})
+    @Column({nullable:true,default: 'https://static.wikia.nocookie.net/disney/images/1/1c/Dinosaur_Url-disneyscreencaps_com-7324.jpg/revision/latest?cb=20110730154056'})
     image: string;
 
-    @Column({default: 'movie description'})
+    @Column({nullable:true,  default: 'movie description'})
     plot: string;
 
-    @Column({default: '11111'})
+    @Column({nullable:true,default: '111111111'})
     imdbID: string;
 
-    @Column({default: '1000'})
+    @Column({nullable:true,default: '1000'})
     imdbRating: string;
 
     @Column({default: false})
