@@ -11,25 +11,25 @@ import methodOverride from 'method-override'
 import path from 'path';
 
 //import Routes
-import { handleViews } from "./src/utils/middlewares/views";
+import { handleViews } from "./utils/middlewares/views";
 
-import userRouter from './src/routes/users';
-import moviesRouter from './src/routes/movies';
-import actorsRouter from './src/routes/actors';
-import favoriteRouter from './src/routes/favorites';
-import reviewsRouter from './src/routes/reviews';
-import authRouter from './src/routes/auth'
+import userRouter from './routes/users';
+import moviesRouter from './routes/movies';
+import actorsRouter from './routes/actors';
+import favoriteRouter from './routes/favorites';
+import reviewsRouter from './routes/reviews';
+import authRouter from './routes/auth';
 // * routes handler
-import { NotFound } from "./src/utils/middlewares/views";
+import { NotFound } from "./utils/middlewares/views";
 //error handler for app
-import { errorHandler } from "./src/utils/ErrorHandler";
+import { errorHandler } from "./utils/ErrorHandler";
 //cookie options
-import { sessionOptions } from "./src/utils/config/config"
+import { sessionOptions } from "./utils/config/config"
 //database connection
-import { connectDatabase } from "./src/utils/config/config";  
+import { connectDatabase } from "./utils/config/config";  
 /* import './src/utils/auth/passport.cookie'; */
 /* import './src/utils/auth/passport.jwt'; */
-import './src/utils/auth/strategy';
+import './utils/auth/strategy';
 /* import './src/utils/auth/passport.facebook'; */
 import passport from 'passport'
 

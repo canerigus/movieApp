@@ -3,7 +3,6 @@ import { requireLogin, validateUser } from "../utils/middlewares/users";
 import { authenticateToken } from "../utils/middlewares/auth";
 import { Router } from 'express';
 import * as express from 'express';
-import passport from 'passport';
 
 const router: Router = express.Router();
 

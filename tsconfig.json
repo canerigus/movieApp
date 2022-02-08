@@ -3,17 +3,12 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
-    //"watch": true,
-    "lib": ["dom","es2017"],
     "noImplicitAny": true,
-    //"strict": true,
-    "allowJs": true,
-    //"checkJs": true,
     "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "dist",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "sourceMap": true,
+    "outDir": "dist",
     "baseUrl": ".",
     "paths": {
       "*": [
@@ -22,5 +17,5 @@
       ]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/**/*.ts"]
 }

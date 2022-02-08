@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity,OneToMany } from "typeorm";
-import { Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max } from "class-validator";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm";
+
+import { IsEmail } from "class-validator";
 import {Movie} from './Movies'
 import {Review} from './Review'
 import {Actor} from './Actors'

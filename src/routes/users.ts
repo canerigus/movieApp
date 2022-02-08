@@ -1,7 +1,7 @@
 import {
   renderHome, renderEdit, renderProfile, renderLogin,
   renderRegister, login, logout, register, updateUserInfo, deleteUser, renderTerms, renderPrivacy, renderGoogle
-} from "../controller/users";
+} from "../controller/users.js";
 import { requireLogin, validateUser } from "../utils/middlewares/users";
 import { authenticateToken } from "../utils/middlewares/auth";
 import { Router } from 'express';

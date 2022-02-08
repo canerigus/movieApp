@@ -4,10 +4,8 @@ import {isUserAlreadyOwnMovie, isUserOwnMovie } from "../utils/middlewares/movie
 import { authenticateToken } from "../utils/middlewares/auth";
 import { Router } from 'express';
 import * as express from 'express';
-import passport from 'passport';
 
 const router: Router = express.Router();
-
 
 router.route('/profile/:id/movies/search')
   .get(requireLogin, authenticateToken, renderMovieSearch)

@@ -1,15 +1,19 @@
 {
-  "type": "module",
   "name": "authentication-typescript",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/app.js",
+  "main": "dist/app.cjs",
   "scripts": {
-    "start": "ts-node --files app.ts",
+    "start": "node dist/app.js",
+    "postinstall": "tsc && rm -v -rf src",
+    "watch-node": "nodemon dist/app.js",
+    "watch-ts": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn app.ts"
+    "dev": "ts-node-dev --respawn src/app.ts",
+    "deploy": "git add . && git commit -m Heroku && git push heroku main"
   },
   "author": "",
+  "engines": { "node": "16.13.1" },
   "license": "ISC",
   "dependencies": {
     "@types/express-serve-static-core": "^4.17.28",

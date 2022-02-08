@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from "typeorm";
-import { Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max } from "class-validator";
 import {User} from './User'
 import {Movie} from './Movies'
 import { Actor  } from './Actors'
 
 //create entity for mysql database.
+
 @Entity()
 export class Review extends BaseEntity{
 

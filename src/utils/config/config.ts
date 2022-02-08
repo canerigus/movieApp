@@ -2,7 +2,6 @@ import { createConnection } from "typeorm"
 //typeorm database connection fn. initiated in app.ts
 export const connectDatabase = async () => {
   try {
-    'mysql://:@/?reconnect=true'
     await createConnection({
       type: "mysql",
       host: "eu-cdbr-west-02.cleardb.net",
@@ -12,7 +11,7 @@ export const connectDatabase = async () => {
       synchronize: true,
       logging: false,
       entities: [
-        "src/entity/**/*.ts"
+        "dist/entity/**/*.js"
       ]
     });
     console.log('Database connected')
@@ -26,7 +25,7 @@ export const connectDatabase = async () => {
 export const sessionOptions = {
   resave: true,
   saveUninitialized: true,
-  secret: process.env.SESSION_SECRET_KEY,
+  secret: process.env.SESSION_SECRET_KEY  || 'notagoodsecret',
   cookie: {
     httpOnly: true,
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
