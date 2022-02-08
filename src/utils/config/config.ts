@@ -4,10 +4,10 @@ export const connectDatabase = async () => {
   try {
     await createConnection({
       type: "mysql",
-      host: "eu-cdbr-west-02.cleardb.net",
-      username: 'b7246249f2a0c6',
-      password: 'a47d2dec',
-      database: 'heroku_fe0dfb9b28df509',
+      host: process.env.DB_HOST,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       synchronize: true,
       logging: false,
       entities: [
