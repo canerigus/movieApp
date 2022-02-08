@@ -1,0 +1,54 @@
+<%- include('../partials/header')%>
+
+<body class="d-flex flex-column vh-100">
+  <%- include('../partials/navbar')%>
+  <main class="container m-auto main">
+    <%- include('../partials/flash')%>
+    <div class="container col-6">
+      <div class="card-body text-center">
+        <img
+          src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+          alt="" class="card-img-top" style="max-width: 600px;">
+        <div class="card">
+          <form action="/profile/<%=currentUser.id%>?_method=PUT" method="POST" novalidate class="validate">
+            <div class="row m-3 d-flex justify-content-center align-items-center">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input class="form-control" type="email" id="email" name="email" value="<%=currentUser.email%>"
+                  required>
+              </div>
+            </div>
+            <hr>
+            <div class="row m-3 d-flex justify-content-center align-items-center">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Username</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input class="form-control" type="text" id="username" name="username" value="<%=currentUser.username%>"
+                  required>
+              </div>
+            </div>
+            <hr>
+            <div class="row m-3 d-flex justify-content-center align-items-center">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Password</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input class="form-control" type="password" id="password" name="password" value="" required>
+              </div>
+            </div>
+            <hr>
+            <div class="card-body">
+              <div class="mb" id="updatebutton">
+                <button class="btn btn-info">Update</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <%- include('../partials/footer')%>

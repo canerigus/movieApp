@@ -1,0 +1,39 @@
+<%- include('../partials/header')%>
+
+<body class="d-flex flex-column vh-100">
+    <%- include('../partials/navbar')%>
+    <main class="container m-auto">
+        <%- include('../partials/flash')%>
+        <div class="container col-md-8 d-flex justify-content-center align-items-center mt-3">
+            <div class="card shadow">
+                <img src="https://media.istockphoto.com/photos/empty-red-armchairs-of-a-theater-ready-for-a-show-picture-id1295114854?k=20&m=1295114854&s=612x612&w=0&h=rrtFZoMQHEfSrWCq3rOugo-LH8mNH73gTH0xyGWY6mI="
+                    alt="" class="card-img-top" style="max-width: 600px;">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Register</h5>
+                    <form action="/register" method="POST" class="validate" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input class="form-control" type="email" id="email" name="email" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="col-6">
+                                <button class="btn btn-success btn-block" style="font-weight: 500;">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+    <%- include('../partials/footer')%>

@@ -1,0 +1,40 @@
+<%- include('../partials/header')%>
+
+<body class="d-flex flex-column vh-100">
+    <%- include('../partials/navbar')%>
+    <main class="container m-auto">
+        <%- include('../partials/flash')%>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div
+                class="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 row-others d-flex justify-content-center align-items-center">
+                <form action="/profile/<%=reqHeadersId%>/movies/results" method="GET" novalidate class="validate">
+                    <div class="card mt-3" style="max-width: 20rem; width: 100%;">
+                        <img class="card-img-top"
+                            src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+                            alt="Card image cap">
+                        <h4 class="text-center mt-3">New Movie</h4>
+                        <hr>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="col-10 m-2">
+                                <input class="form-control" type="text" id="t" name="movie" placeholder="Movie name"
+                                    required>
+                            </div>
+
+                            <div class="col-10 m-2">
+                                <input class="form-control" type="text" id="y" name="year" placeholder="Movie year"
+                                    required>
+                            </div>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="m-3 d-flex justify-content-center align-items-center">
+                            <button class="btn btn-info">Search Movie</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+        </div>
+
+    </main>
+    <%- include('../partials/footer')%>

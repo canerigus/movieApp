@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinephiles</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet" href="/home.css">
+
+</head>
+
+<body class="d-flex flex-column vh-100 ">
+  <nav class="navbar sticky-top navbar-expand-md navbar-dark" style="background-color:#590219;">
+    <div class="container-fluid">
+      <span class="navbar-brand" style="color: white;">Cinephiles</span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <% if(!id) {%>
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/movies/favorites">Favorite Movies</a>
+          <a class="nav-link" href="/actors/favorites">Favorite Actors</a>
+          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/register">Register</a>
+          <% } else {%>
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/movies/favorites">Favorite Movies</a>
+          <a class="nav-link" href="/actors/favorites">Favorite Actors</a>
+          <a class="nav-link" href="/profile/<%=id%>">Profile</a></h5>
+          <a class="nav-link" href="/logout">Logout</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container m-auto">
+    <%- include('../partials/flash')%>
+    <div class="container col-md-8 d-flex justify-content-center align-items-center">
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="mb-3">
+            <h1>Website Terms and Conditions of Use</h1>
+
+            <h2>1. Terms</h2>
+
+            <p>By accessing this Website, accessible from https://cinephiless.herokuapp.com/, you are agreeing to be
+              bound by these Website Terms and Conditions of Use and agree that you are responsible for the agreement
+              with any applicable local laws. If you disagree with any of these terms, you are prohibited from accessing
+              this site. The materials contained in this Website are protected by copyright and trade mark law.</p>
+
+            <h2>2. Use License</h2>
+
+            <p>Permission is granted to temporarily download one copy of the materials on cinephiles's Website for
+              personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title,
+              and under this license you may not:</p>
+
+            <ul>
+              <li>modify or copy the materials;</li>
+              <li>use the materials for any commercial purpose or for any public display;</li>
+              <li>attempt to reverse engineer any software contained on cinephiles's Website;</li>
+              <li>remove any copyright or other proprietary notations from the materials; or</li>
+              <li>transferring the materials to another person or "mirror" the materials on any other server.</li>
+            </ul>
+
+            <p>This will let cinephiles to terminate upon violations of any of these restrictions. Upon termination,
+              your viewing right will also be terminated and you should destroy any downloaded materials in your
+              possession whether it is printed or electronic format.
+
+              <h2>3. Disclaimer</h2>
+
+              <p>All the materials on cinephiles’s Website are provided "as is". cinephiles makes no warranties, may it
+                be
+                expressed or implied, therefore negates all other warranties. Furthermore, cinephiles does not make any
+                representations concerning the accuracy or reliability of the use of the materials on its Website or
+                otherwise relating to such materials or any sites linked to this Website.</p>
+
+              <h2>4. Limitations</h2>
+
+              <p>cinephiles or its suppliers will not be hold accountable for any damages that will arise with the use
+                or
+                inability to use the materials on cinephiles’s Website, even if cinephiles or an authorize
+                representative
+                of this Website has been notified, orally or written, of the possibility of such damage. Some
+                jurisdiction
+                does not allow limitations on implied warranties or limitations of liability for incidental damages,
+                these
+                limitations may not apply to you.</p>
+
+              <h2>5. Revisions and Errata</h2>
+
+              <p>The materials appearing on cinephiles’s Website may include technical, typographical, or photographic
+                errors. cinephiles will not promise that any of the materials in this Website are accurate, complete, or
+                current. cinephiles may change the materials contained on its Website at any time without notice.
+                cinephiles does not make any commitment to update the materials.</p>
+
+              <h2>6. Links</h2>
+
+              <p>cinephiles has not reviewed all of the sites linked to its Website and is not responsible for the
+                contents of any such linked site. The presence of any link does not imply endorsement by cinephiles of
+                the
+                site. The use of any linked website is at the user’s own risk.</p>
+
+              <h2>7. Site Terms of Use Modifications</h2>
+
+              <p>cinephiles may revise these Terms of Use for its Website at any time without prior notice. By using
+                this
+                Website, you are agreeing to be bound by the current version of these Terms and Conditions of Use.</p>
+
+              <h2>8. Your Privacy</h2>
+
+              <p>Please read our Privacy Policy.</p>
+
+              <h2>9. Governing Law</h2>
+
+              <p>Any claim related to cinephiles's Website shall be governed by the laws of tr without regards to its
+                conflict of law provisions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+  </main>
+
+  <footer class="footer mt-auto py-3" style="background-color:#590219;">
+    <div class="container" style="text-align: center;">
+      <div class="row">
+        <div class="col-3">
+          <a href="/terms" style="color: white;">Terms And Service</a>
+        </div>
+        <div class="col-6">
+          <span style="color:rgb(255, 255, 255);">&copy; Caner Igus - Gusto NodeJs Bootcamp</span>
+        </div>
+
+        <div class="col-3">
+          <a href="/privacy" style="color: white;">Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+    integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous">
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<%- include('../partials/header')%>
+
+<body class="d-flex flex-column vh-100">
+  <%- include('../partials/navbar')%>
+  <main>
+
+    <%- include('../partials/flash')%>
+    <div class="container">
+      <% if(sharedActors.length) { %>
+      <% for(let actor of sharedActors) { %>
+      <div class="card mb-3">
+        <div class="row">
+          <div class="col-6">
+            <div class="card-body">
+              <img class="card-img-top" src="<%=actor.image%>" style="max-width: 400px;">
+            </div>
+            <div class="card-body">
+              <h4 class="card-title"><%=actor.name%></h4>
+              <hr>
+              <h5 class="text-center mb-3"><i>Known For</i></h5>
+              <ul class="p-0">
+                <% actor.films.forEach((film)=> { %>
+                <% if(film){ %>
+                <p><%=film%></p>
+                <% } %>
+                <% }) %>
+              </ul>
+              <hr>
+              <p class="text-muted">Submitted by: <%=actor.user.username%></p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card-body">
+              <legend><i><b>User Reviews For <%=actor.name%></b></i></legend>
+              <hr>
+              <div class="review-section text-left">
+                <% if(actor.reviews.length){ %>
+                <% actor.reviews.forEach((review)=> { %>
+                <div class="card mb-3 ">
+                  <div class="card-body">
+                    <p class="starability-result" data-rating="<%=review.rating%>">
+                      Rated: <%=review.rating%> stars
+                    </p>
+                    <p class="card-text"><b>Comment: </b><%=review.body%></p>
+                    <p class="text-muted">Submitted by: <%=review.username%></p>
+                    <% if(id) {%>
+                    <% if(review.userId === id) {%>
+                    <form action="/profile/<%=id%>/actors/reviews/<%=actor.id%>/<%=review.id%>?_method=DELETE"
+                      method="POST">
+                      <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                    <% } %>
+                    <% } %>
+                  </div>
+                </div>
+                <% }) %>
+                <% } else {%>
+                <p><i><%=actor.name%> has no reviews yet.</i></p>
+                <% if(!id) { %>
+                <p>
+                  <a href="/login" style="color: #590219;">Would you
+                    like
+                    to be first? </a>
+                </p>
+                <% } %>
+                <% } %>
+              </div>
+            </div>
+            <hr>
+            <% if(id){ %>
+
+            <form action="/profile/<%=id%>/actors/reviews/<%=actor.id%>" class="mb-3 validate" method="POST" novalidate>
+              <div class="mb-3">
+                <label class="form-label" for="body" style="font-size: 1.2rem;"><i>Leave a review for
+                    <%=actor.name%></i></label>
+                <textarea class="form-control" name="reviewBody" id="body" cols="30" rows="3" required></textarea>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+
+              <!--                     <div class="mb-3">
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="like" id="flexRadioDefault1" value="1">
+                              <label class="form-check-label" for="flexRadioDefault1">
+                                Like 
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="like" id="flexRadioDefault2" value="0">
+                              <label class="form-check-label" for="flexRadioDefault2">
+                                Or Dislike 
+                              </label>
+                          </div>
+                    </div> -->
+              <h5 class="mb-3">Rating</h5>
+              <div class="">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="reviewRating" id="inlineRadio1" value="1">
+                  <label class="form-check-label" for="inlineRadio1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="reviewRating" id="inlineRadio1" value="2">
+                  <label class="form-check-label" for="inlineRadio1">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="reviewRating" id="inlineRadio1" value="3">
+                  <label class="form-check-label" for="inlineRadio1">3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="reviewRating" id="inlineRadio1" value="4">
+                  <label class="form-check-label" for="inlineRadio1">4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="reviewRating" id="inlineRadio1" value="5">
+                  <label class="form-check-label" for="inlineRadio1">5</label>
+                </div>
+              </div>
+              <div class="text-center mt-3">
+                <button class="btn btn-success">Submit</button>
+              </div>
+            </form>
+            <% } %>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <% }else { %>
+    <div class="row d-flex justify-content-center align-items-center mt-5">
+      <div class="col-6">
+        <legend><i><b>There is nothing to show yet</b></i></legend>
+      </div>
+    </div>
+    <% } %>
+  </main>
+  <script>
+
+  </script>
+  <%- include('../partials/footer')%>

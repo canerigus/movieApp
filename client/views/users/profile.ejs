@@ -1,0 +1,100 @@
+<%- include('../partials/header')%>
+
+<body class="d-flex flex-column vh-100">
+  <%- include('../partials/navbar')%>
+  <main class="container">
+    <%- include('../partials/flash')%>
+    <h1 class="mb-3 mt-3" style="text-align: center; text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);">User Info</h1>
+    <div class="card mb-3 mt-3">
+      <div class="row m-3">
+        <div class="col-12">
+          <div class="card-body">
+            <a href="/profile/<%=currentUser.id%>/movies/search" class="btn btn-dark">Add a Favorite Movie</a>
+            <a href="/profile/<%=currentUser.id%>/actors/search" class="btn btn-dark">Add a Favorite Actor</a>
+            <a href="/profile/<%=currentUser.id%>/edit" class="btn btn-info">Update User Info</a>
+            <form class="d-inline mr-1 validate" action="/profile/<%=currentUser.id%>?_method=DELETE" method="POST">
+              <button class="btn btn-danger">Delete Account</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <h1 class="mb-3" style="text-align: center; text-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);">Favorite Movies</h1>
+    <% movies.forEach((movie) => { %>
+    <div class="card mb-3">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-4">
+          <img class="img-fluid" alt="" src="<%=movie.image%>">
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <legend class="card-text mb-3"><b><%=movie.title%> - <%=movie.year%></b></legend>
+            <p class="card-text"><i><%=movie.plot%></i></p>
+            <h6>IMDB Rating: <%=movie.imdbRating%></h6>
+            <div class="card-body">
+              <form action="/profile/<%=currentUser.id%>/movies/results?_method=PUT" method="POST" class="d-inline">
+                <% if(movie.isVisible){ %>
+                <input type="hidden" name="isVisible" value="<%='false'%>">
+                <input type="hidden" name="movieID" value="<%=movie.id%>">
+                <button class="btn btn-warning">Hide</button>
+                <% } else { %>
+                <input type="hidden" name="isVisible" value="<%='true'%>">
+                <input type="hidden" name="movieID" value="<%=movie.id%>">
+                <button class="btn btn-info">Share</button>
+                <% } %>
+              </form>
+              <form action="/profile/<%=currentUser.id%>/movies/results/<%=movie.id%>?_method=DELETE" method="POST"
+                class="d-inline">
+                <button class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+
+    <% actors.forEach((actor) => { %>
+    <div class="card mb-3">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-4">
+          <img class="img-fluid" alt="" src="<%=actor.image%>">
+        </div>
+        <div class="col-md-6">
+          <div class="card-body">
+            <legend class="card-text mb-3"><b><%=actor.name%></b></legend>
+            <h5 class="text-center mb-3"><i>Known For</i></h5>
+            <ul class="actor-films">
+              <% actor.films.forEach((film)=> { %>
+              <% if(film){ %>
+              <li style="list-style-position: inside;"><%=film%></li>
+              <% } %>
+              <% }) %>
+            </ul>
+            <div class="card-body">
+              <form action="/profile/<%=currentUser.id%>/actors/results?_method=PUT" method="POST" class="d-inline">
+                <% if(actor.isVisible){ %>
+                <input type="hidden" name="isVisible" value="<%='false'%>">
+                <input type="hidden" name="actorID" value="<%=actor.id%>">
+                <button class="btn btn-warning">Hide</button>
+                <% } else { %>
+                <input type="hidden" name="isVisible" value="<%='true'%>">
+                <input type="hidden" name="actorID" value="<%=actor.id%>">
+                <button class="btn btn-info">Share</button>
+                <% } %>
+              </form>
+              <form action="/profile/<%=currentUser.id%>/actors/results/<%=actor.id%>?_method=DELETE" method="POST"
+                class="d-inline">
+                <button class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <% }); %>
+
+  </main>
+  <%- include('../partials/footer')%>

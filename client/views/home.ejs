@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinephiles</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet" href="/home.css">
+
+</head>
+
+<body class="d-flex flex-column vh-100 ">
+  <nav class="navbar sticky-top navbar-expand-md navbar-dark" style="background-color:#590219;">
+    <div class="container-fluid">
+      <span class="navbar-brand" style="color: white;">Cinephiles</span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <% if(!id) {%>
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/movies/favorites">Favorite Movies</a>
+          <a class="nav-link" href="/actors/favorites">Favorite Actors</a>
+          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/register">Register</a>
+          <% } else {%>
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/movies/favorites">Favorite Movies</a>
+          <a class="nav-link" href="/actors/favorites">Favorite Actors</a>
+          <a class="nav-link" href="/profile/<%=id%>">Profile</a></h5>
+          <a class="nav-link" href="/logout">Logout</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container m-auto">
+    <%- include('./partials/flash')%>
+    <div class="container col-md-8 d-flex justify-content-center align-items-center">
+      <div class="card shadow">
+        <img
+          src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bW92aWVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+          alt="" class="card-img-top" style="max-width: 600px;">
+        <div class="card-body">
+          <div class="mb-3">
+            <p class="lead font-weight-bold border-white bg-white"" style=" text-align: center;">
+              Welcome to Cinephiles. <br> A space for cinema passionates to share and discuss <br> Favorite Films &
+              Actors</p>
+          </div>
+          <hr>
+          <legend class="text-center"><i>Take a Look</i></legend>
+          <div class="card-body text-center">
+            <a href="/movies/favorites" class="btn btn-dark btn-lg" style="margin: 0.3rem;">Movies</a>
+            <a href="/actors/favorites" class="btn btn-dark btn-lg" style="margin: 0.3rem;">Actors</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+  </main>
+
+  <footer class="footer mt-auto py-3" style="background-color:#590219;">
+    <div class="container" style="text-align: center;">
+      <div class="row">
+        <div class="col-3">
+          <a href="/terms" style="color: white;">Terms And Service</a>
+        </div>
+        <div class="col-6">
+          <span style="color:rgb(255, 255, 255);">&copy; Caner Igus - Gusto NodeJs Bootcamp</span>
+        </div>
+
+        <div class="col-3">
+          <a href="/privacy" style="color: white;">Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+    integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous">
+  </script>
+
+</body>
+
+</html>

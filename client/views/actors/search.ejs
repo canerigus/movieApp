@@ -1,0 +1,36 @@
+<%- include('../partials/header')%>
+
+<body class="d-flex flex-column vh-100">
+    <%- include('../partials/navbar')%>
+    <main class="container m-auto">
+        <%- include('../partials/flash')%>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div
+                class="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-9 row-others d-flex justify-content-center align-items-center">
+                <div class="card mt-2" style="max-width: 20rem; width: 100%;">
+                    <img class="card-img-top"
+                        src="https://media.istockphoto.com/photos/theater-director-multicultural-actors-and-actress-rehearsing-on-stage-picture-id1210331665?k=20&m=1210331665&s=612x612&w=0&h=EyY5Im86crw7CrrtXWns2BJwIZSUzPWmO5PUy5K-aLM="
+                        alt="Card image cap">
+                    <h4 class="text-center m-3">New Actor</h4>
+                    <hr>
+                    <form action="/profile/<%=reqHeadersId%>/actors/results" method="GET" novalidate
+                        class="validate m-3">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="col-12">
+                                <input class="form-control m-1" type="text" id="a" name="actor" placeholder="Actor name"
+                                    required>
+                            </div>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="m-3 d-flex justify-content-center align-items-center">
+                            <button class="btn btn-info">Search Actor</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <%- include('../partials/footer')%>

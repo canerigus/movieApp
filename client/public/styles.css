@@ -1,0 +1,79 @@
+  #googleLogin {
+    padding: 10px 15px;
+    padding-top: 19.5px;
+    padding-bottom: 19.5px;
+    color: #fff;
+     line-height: 21px;
+    position: relative;
+    display: block;
+    background: transparent;
+}
+
+#googleLogin:hover {
+  color: #446cb0;
+  text-decoration: none;
+  background-color: white;
+}
+
+.review-section{
+  max-height: 52vh;
+  max-width: 100%;
+  overflow-y:scroll;
+}
+
+.row{
+  text-align: center;
+  }
+
+.btn{
+  margin: 0.2rem;
+}
+
+.img-fluid{
+  width: 25rem;
+}
+
+#flash {
+  max-width: 500px;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.alert{
+  text-align: center;
+  margin: 0;
+}
+
+ul{
+  word-wrap: break-word;
+}
+
+.fa-heart-o {
+  color: red;
+  cursor: pointer;
+}
+
+.fa-heart {
+  color: red;
+  cursor: pointer;
+}
+
+
+.nav-link {
+  padding: 0.25rem 0;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.815);
+  margin-left: 1rem;
+  border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover{
+  color: rgb(255, 255, 255);
+  border-bottom-color:rgb(255, 255, 255);
+}
+
+.nav-bar{
+  color: white;
+  border-bottom-color:white;
+  z-index: 11;
+}
