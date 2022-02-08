@@ -9,6 +9,8 @@ export const connectDatabase = async () => {
       username: 'b7246249f2a0c6',
       password: 'a47d2dec',
       database: 'heroku_fe0dfb9b28df509',
+      synchronize: true,
+      logging: false,
       entities: [
         "src/entity/**/*.ts"
       ]
