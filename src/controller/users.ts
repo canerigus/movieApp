@@ -173,24 +173,6 @@ export const updateUserInfo: RequestHandler = async (req, res) => {
 //delete the user.
 export const deleteUser: RequestHandler = async (req, res) => {
   try {
-    const userId = +req.headers.id
-    //in the below for loops, user's liked movies' and liked actors' likescount are updated if there is any.
-    //the for loop start from 1, which discards the 'initialize' and looks if there is any movie/actor liked.
-    const currentUser = await User.findOne({ id: userId })
-    const likedMovies = currentUser.likedmovies
-    const likedActors = currentUser.likedactors
-    for (let i = 1; i < likedMovies.length; i++) {
-      const movieId = +likedMovies[i]
-      const movie = await Movie.findOne({ id: movieId })
-      const decreasedLikeCount = movie.likescount - 1;
-      await Movie.createQueryBuilder().update(Movie).set({ likescount: decreasedLikeCount }).where('id = :id', { id: movieId }).execute();
-      }
-      for (let i = 1; i < likedActors.length; i++) {
-        const actorId = +likedActors[i]
-        const actor = await Actor.findOne({ id: actorId })
-        const decreasedActorLikeCount = actor.likescount - 1;
-        await Actor.createQueryBuilder().update(Actor).set({ likescount: decreasedActorLikeCount }).where('id = :id', { id: actorId }).execute();
-      }
     //get delete the user with headers id and clear the session. Deleting user CASCADES on actors, movies and reviews.
     await User.createQueryBuilder().delete().from(User).where('id = :id', { id: req.headers.id }).execute();
     req.session.email = null;
