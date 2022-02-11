@@ -19,6 +19,7 @@ export const createMovieReview: RequestHandler = async (req, res) => {
           //get Review entity and create a new Review using the given information.
           const newReview = Review.create({
             user: currentUser,
+            username: currentUser.username || 'anonymous',
             userId : currentUser.id,
             movie: currentMovie,
             body: reviewBody,
@@ -55,6 +56,7 @@ export const createActorReview: RequestHandler = async (req, res) => {
         //get Review entity and create a new Review using the given information.
         const newReview = Review.create({
           user: currentUser,
+          username: currentUser.username || 'anonymous',
           userId : currentUser.id,
           actor: currentActor,
           body: reviewBody,
