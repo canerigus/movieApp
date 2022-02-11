@@ -1,7 +1,6 @@
 import {
   renderHome, renderEdit, renderProfile, renderLogin,
-  renderRegister, login, logout, register, updateUserInfo, deleteUser, renderTerms, renderPrivacy, renderGoogle
-} from "../controller/users.js";
+  renderRegister, login, logout, register, updateUserInfo, deleteUser, renderTerms, renderPrivacy} from "../controller/users";
 import { requireLogin, validateUser } from "../utils/middlewares/users";
 import { authenticateToken } from "../utils/middlewares/auth";
 import { Router } from 'express';
@@ -22,10 +21,7 @@ router.route('/login')
   .get(renderLogin)
   .post(login)
   
-//login routes
-router.route('/google/login')
-  .get(authenticateToken , renderGoogle)
-  
+
 //profile routes
 router.route('/profile/:id')  
   .get(requireLogin, authenticateToken, renderProfile)

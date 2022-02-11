@@ -18,17 +18,20 @@ export class Movie extends BaseEntity{
     @Column({nullable:true,default: 'https://static.wikia.nocookie.net/disney/images/1/1c/Dinosaur_Url-disneyscreencaps_com-7324.jpg/revision/latest?cb=20110730154056'})
     image: string;
 
-    @Column({nullable:true,  default: 'movie description'})
+    @Column({nullable:true,  default: 'movie description not found'})
     plot: string;
 
     @Column({nullable:true,default: '111111111'})
     imdbID: string;
 
-    @Column({nullable:true,default: '1000'})
+    @Column({nullable:true, default: '1000'})
     imdbRating: string;
 
     @Column({default: false})
     isVisible: boolean;
+
+    @Column({ nullable: true, default: 0})
+    likescount: number;
 
     @ManyToOne(() => User, user => user.movies, {nullable: false, onDelete: "CASCADE"})
     user: User;

@@ -8,7 +8,6 @@ import {Actor} from './Actors'
 //create entity for mysql database.
 @Entity()
 export class User extends BaseEntity{
-
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -28,13 +27,18 @@ export class User extends BaseEntity{
     @Column({nullable: true})
     password: string;
 
+    @Column("simple-array", {nullable: true})
+    likedmovies: string[];
+    
+    @Column("simple-array", {nullable: true})
+    likedactors: string[];
+
     @OneToMany(() => Movie, movies => movies.user)
     movies: Movie[];
 
     @OneToMany(() => Actor, actors => actors.user)
     actors: Actor[];
-
+    
     @OneToMany(() => Review, review => review.user)
     reviews: Review[];
-
 }

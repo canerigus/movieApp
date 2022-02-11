@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 
-//session checker function
+//session checker function 
 export const requireLogin: RequestHandler = (req, res, next) => {
 	if (!req.session.userid) {
 		req.flash('error', 'Session Expired');
@@ -15,6 +15,7 @@ export const requireLogin: RequestHandler = (req, res, next) => {
 	}
 };
 
+//validateUser middleware. Checks params' id and headers'id(authenticated user id) if they match. if so next(), if not flash an error.
 export const validateUser: RequestHandler = async (req, res, next) => {
 	const queryId = req.params.id
 	const userId = ""+req.headers.id

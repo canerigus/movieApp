@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToMany } from "typeorm";
+import { Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max } from "class-validator";
 import {User} from './User'
 import {Review} from './Review'
 
@@ -12,17 +13,17 @@ export class Actor extends BaseEntity{
     @Column({nullable: false})
     name: string;
 
-    @Column({nullable:true, default:'https://images.unsplash.com/photo-1458134580443-fbb0743304eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80'})
+    @Column()
     image: string;
 
-    @Column("simple-array")
+    @Column("simple-array",{nullable: true})
     films: string[];
 
     @Column({default: false})
     isVisible: boolean;
     
     @Column({ nullable: true, default: 0})
-    likes: number;
+    likescount: number;
 
     @ManyToOne(() => User, user => user.actors, {nullable: false, onDelete: "CASCADE"})
     user: User;

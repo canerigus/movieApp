@@ -17,7 +17,7 @@ export class Review extends BaseEntity{
     @Column({ nullable: true, default: 0})
     rating: number;
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     username: string
 
     @Column({nullable: false})

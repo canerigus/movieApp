@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') { dotenv.config() }
 import "reflect-metadata";
 
 import session from 'express-session';
-import express, { RequestHandler } from 'express';
+import express from 'express';
 import cookieParser from 'cookie-parser';
 import flash from 'connect-flash';
 import methodOverride from 'method-override'
@@ -27,16 +27,16 @@ import { errorHandler } from "./utils/ErrorHandler";
 import { sessionOptions } from "./utils/config/config"
 //database connection
 import { connectDatabase } from "./utils/config/config";  
-/* import './src/utils/auth/passport.cookie'; */
-/* import './src/utils/auth/passport.jwt'; */
+
+//import google and facebook strategies and passport.
 import './utils/auth/strategy';
-/* import './src/utils/auth/passport.facebook'; */
 import passport from 'passport'
 
 //app options
 const app = express();
 connectDatabase();
 
+//initialize passport.
 app.use(passport.initialize());
 app.use(passport.session());
 

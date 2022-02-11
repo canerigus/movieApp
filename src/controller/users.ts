@@ -9,14 +9,8 @@ import { validate } from "class-validator";
 
 
 //home get controller
-export const renderHome:RequestHandler = (req, res) => {
+export const renderHome: RequestHandler = (req, res) => {
   res.status(200).render('home')
-}
-
-
-//home get controller
-export const renderGoogle: RequestHandler = (req, res) => {
-  res.status(200).render('users/google')
 }
 
 //register get controller
@@ -26,28 +20,32 @@ export const renderRegister: RequestHandler = async (req, res) => {
 
 //register post controller
 //right now, a simple validation on client side /client/public/validation.js and on model side are used. 
-//will add more validations using regex or a third party package.
+//STRONG validation is not implemented for now easier testing. a simple password with one letter or an invalid email is enough to register.
 export const register: RequestHandler = async (req, res) => {
   //destructure info from request.body
   const {email, password } = req.body;
   const existingEmail = await User.findOne({ email });
+  //if email is registered before, flash an error.
   if (existingEmail) {
-    req.flash('error', 'Username or Email already registered!')
+    req.flash('error', 'Email already registered!')
     return res.status(400).redirect('/register')
   }
   try {
     //hash the given password using bcrypt.
     const hashedPassword = await bcrypt.hash(password, 10)
+    //initialize likes. This is needed for EJS templating purposes. likes array must not be empty.
+    const likedmovies = ['initialize']
+    const likedactors = ['initialize']
     //get User entity and create a new User entity using the given information.
-    const user  = User.create({ email: email, password: hashedPassword })
+    const user = User.create({ email: email, password: hashedPassword, likedmovies: likedmovies, likedactors: likedactors })
+    //throw an error if validation fails. Only email structural validation is present right now.
     const errors = await validate(user);
     if (errors.length > 0) {
       throw new Error(`Validation failed!`);
     } else {
+      //save the new User into database.
       await User.save(user);
     }
-    //save the new User into database.
-    //await getRepository(User).save(user)
     req.flash('success', 'Successfully signed up!')
     return res.status(200).redirect('/login')
   } catch (e) {
@@ -67,7 +65,7 @@ export const renderLogin: RequestHandler = async (req, res) => {
 
 //login post controller
 export const login: RequestHandler = async (req, res) => {
-  //get username&password from body then correct it with the registered userbase.
+  //get email&password from body then correct it with the registered userbase.
   const {email, password} = req.body
   const user = await User.findOne({ email: email })
   //if user doesnt exist in database, redirect.
@@ -78,37 +76,36 @@ export const login: RequestHandler = async (req, res) => {
   try {
     //if user exists in database, then compare the given info with the one in db. in other words, check if the password is correct with bcrypt compare. 
     if (user.email === email && await bcrypt.compare(password, user.password)) {
-      /* if (user.email === email && password === user.password) { */
-      //after username & password correction, generate token for the user for specified minutes.
+      //after email & password correction, generate token for the user for specified minutes.
       const payload = {
         id: user.id,
         email: user.email
       };
       //generate jwt token.
-   /*    const accessToken = generateJWT(payload) */
       const accessToken = generateAccessToken(payload)
       //jwt token generated and sent to client as cookie.
-      res.cookie("jwt", accessToken); 
-      //username added into session info for future controls.
-      //session does not persist long term? passport jwt req.user has type issues on renderprofile etc. Check Again
+      res.cookie("jwt", accessToken, { expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), httpOnly: true }); 
+      //email added into session info for future controls.
       req.session.email = user.email;
       req.session.userid = user.id;
       req.flash('success', 'Successfully logged in!')
       return res.status(200).redirect(`/profile/${user.id}`) 
 
     } else {
-      req.flash('error', 'Wrong username or password!')
+      //flash an error if email or password is wrong.
+      req.flash('error', 'Wrong email or password!')
       return res.status(400).redirect('/login')
     }
   } catch (e) {
+    //flash an error if login failed.
     req.flash('error', 'Sorry, something went wrong while loggin in!')
     return res.status(500).redirect('/login')
   }
 }
 
-//user get controller
-//redirect sends req.body info temporarily to /users get route
+//renders profile.
 export const renderProfile: RequestHandler = async (req, res) => {
+  //get all movies, actors and user information and send to client for views.
   const currentUser = await User.findOne(+req.headers.id)
   const movies = await Movie.find({where: {user: {id: req.headers.id}}})
   const actors = await Actor.find({where: {user: {id: req.headers.id}}})
@@ -116,31 +113,34 @@ export const renderProfile: RequestHandler = async (req, res) => {
 }
 
 
+//renders user account edit page.
 export const renderEdit: RequestHandler = async (req, res) => {
   const currentUser = await User.findOne({id: +req.headers.id});
   res.status(200).render('users/edit', {currentUser})
 }
 
 //logout controller
-export const logout: RequestHandler = (req, res)  => {
-  res.clearCookie('token');
-  res.cookie("token", "", { maxAge: 1 });
+export const logout: RequestHandler = (req, res) => {
+  //clears the JWT authentication cookie and destroys the session.
+  res.clearCookie('jwt');
+  res.cookie("jwt", "", { maxAge: 1 });
   res.cookie("connect.sid", "", { maxAge: 1 });
-  console.log('res.locals logout')
-  console.log(res.locals)
   req.session.destroy((err) => {
     res.redirect('/') 
   })
 }
 
-
+ //updates the user information. 
 export const updateUserInfo: RequestHandler = async (req, res) => {
+  //get info from form
   const { username,email, password } = req.body;
-    try {
+  try {
+      //validate given info by user. (email for now). if validation fails throw an error.
       const errorsUserInfo = await validate({ username, email, password });
       if (errorsUserInfo.length > 0) {
         throw new ExpressError(`Validation failed!`, 401);
-      } 
+    } 
+    //hash the new password. and update user information.
       const hashedPassword = await bcrypt.hash(password, 10)
       await User.createQueryBuilder().update(User)
         .set({
@@ -149,7 +149,8 @@ export const updateUserInfo: RequestHandler = async (req, res) => {
           password: hashedPassword
         })
         .where('id = :id', { id: req.headers.id })
-        .execute();
+      .execute();
+      //get the updatedUser info with id(which is not changed) then re-initialize jwt and session. 
       const updatedUser = await User.findOne(+req.headers.id);
       //re-initialize jwt token
       const payload = {
@@ -159,27 +160,49 @@ export const updateUserInfo: RequestHandler = async (req, res) => {
       req.session.userid = req.headers.id;
       const newToken = generateAccessToken(payload)
       //jwt token generated and sent to client as cookie.
-      res.cookie("token", newToken, { httpOnly: true, sameSite: "strict" });
+      res.cookie("token", newToken, { httpOnly: true, sameSite: "strict", expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) });
       req.flash('success', 'Information updated.')
       return res.status(200).redirect(`/profile/${updatedUser.id}`)
-    } catch (error) {
-      req.flash('error', `Something went wrong. Maybe the email or username already in use - updateUser`)
-      return res.status(500).redirect(`/profile/${+req.headers.id}`)
-    }
+  } catch (error) {
+    //flash an error if updating user fails
+    req.flash('error', `Something went wrong - updateUser`)
+    return res.status(500).redirect(`/profile/${+req.headers.id}`)
+  }
 };
 
+//delete the user.
 export const deleteUser: RequestHandler = async (req, res) => {
   try {
-			await User.createQueryBuilder().delete().from(User).where('id = :id', { id: req.headers.id }).execute();
-			req.session.email = null;
-			req.session.userid = null;
-			res.clearCookie('token');
-			return res.status(200).redirect('/');
+    const userId = +req.headers.id
+    //in the below for loops, user's liked movies' and liked actors' likescount are updated if there is any.
+    //the for loop start from 1, which discards the 'initialize' and looks if there is any movie/actor liked.
+    const currentUser = await User.findOne({ id: userId })
+    const likedMovies = currentUser.likedmovies
+    const likedActors = currentUser.likedactors
+    for (let i = 1; i < likedMovies.length; i++) {
+      const movieId = +likedMovies[i]
+      const movie = await Movie.findOne({ id: movieId })
+      const decreasedLikeCount = movie.likescount - 1;
+      await Movie.createQueryBuilder().update(Movie).set({ likescount: decreasedLikeCount }).where('id = :id', { id: movieId }).execute();
+      }
+      for (let i = 1; i < likedActors.length; i++) {
+        const actorId = +likedActors[i]
+        const actor = await Actor.findOne({ id: actorId })
+        const decreasedActorLikeCount = actor.likescount - 1;
+        await Actor.createQueryBuilder().update(Actor).set({ likescount: decreasedActorLikeCount }).where('id = :id', { id: actorId }).execute();
+      }
+    //get delete the user with headers id and clear the session. Deleting user CASCADES on actors, movies and reviews.
+    await User.createQueryBuilder().delete().from(User).where('id = :id', { id: req.headers.id }).execute();
+    req.session.email = null;
+    req.session.userid = null;
+    res.clearCookie('token');
+    return res.status(200).redirect('/');
 		} catch (error) {
-      console.log(error);
-      req.flash('error', `Sorry. Something went wrong. - Delete User`)
-      return res.status(500).redirect(`/profile/${req.headers.id}`)
-		}
+    console.log(error);
+    //flash an error if deleting the user fails
+    req.flash('error', `Sorry. Something went wrong. - Delete User`)
+    return res.status(500).redirect(`/profile/${req.headers.id}`)
+    }
 
 };
 
