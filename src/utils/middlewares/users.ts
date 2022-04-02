@@ -22,7 +22,7 @@ export const validateUser: RequestHandler = async (req, res, next) => {
 		if (queryId === userId) {
 			next();
 		} else {
-			req.flash('error', 'You do not have permission to do that! - Validate User');
+			req.flash('error', 'You do not have permission to do that!');
 			res.status(403).redirect(`/profile/${req.headers.id}`);
 		}
 };
