@@ -24,7 +24,7 @@ router.route('/login')
 
 //profile routes
 router.route('/profile/:id')  
-  .get(requireLogin, authenticateToken, renderProfile)
+  .get(requireLogin, authenticateToken, validateUser,renderProfile)
   .put(requireLogin, authenticateToken, validateUser, updateUserInfo)
   .delete(requireLogin, authenticateToken, validateUser, deleteUser)
 
