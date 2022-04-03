@@ -149,6 +149,14 @@ export const logout: RequestHandler = (req, res) => {
 
  //updates the user information. 
 export const updateUserInfo: RequestHandler = async (req, res) => {
+  const userId = ""+req.headers.id
+  await check("password").isLength({ min: 6 }).run(req);
+  const errors = validationResult(req);
+  //if validation fails, flash an error.
+  if (!errors.isEmpty()) {
+    req.flash("error", 'Password cannot be lower than 6 characters');
+    return res.redirect(`/profile/${userId}`);
+  }
   //get info from form
   const { username,email, password } = req.body;
   try {
