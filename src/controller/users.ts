@@ -6,6 +6,7 @@ import { User } from "../entity/User";
 import { Movie } from "../entity/Movies";
 import { Actor } from "../entity/Actors";
 import { validate } from "class-validator";
+import { check, validationResult } from "express-validator";
 
 
 //home get controller
@@ -22,6 +23,14 @@ export const renderRegister: RequestHandler = async (req, res) => {
 //right now, a simple validation on client side /client/public/validation.js and on model side are used. 
 //STRONG validation is not implemented for now easier testing. a simple password with one letter or an invalid email is enough to register.
 export const register: RequestHandler = async (req, res) => {
+  await check("email").isEmail().run(req);
+  await check("password").isLength({ min: 6 }).run(req);
+  const errors = validationResult(req);
+  //if validation fails, flash an error.
+  if (!errors.isEmpty()) {
+    req.flash("error", 'Email or password validation failed');
+    return res.redirect("/register");
+  }  
   //destructure info from request.body
   const {email, password } = req.body;
   const existingEmail = await User.findOne({ email });
@@ -41,7 +50,7 @@ export const register: RequestHandler = async (req, res) => {
     //throw an error if validation fails. Only email structural validation is present right now.
     const errors = await validate(user);
     if (errors.length > 0) {
-      throw new Error(`Validation failed!`);
+      throw new Error(`Validation DB failed!`);
     } else {
       //save the new User into database.
       await User.save(user);
@@ -65,6 +74,14 @@ export const renderLogin: RequestHandler = async (req, res) => {
 
 //login post controller
 export const login: RequestHandler = async (req, res) => {
+  await check("email").isEmail().run(req);
+  await check("password").isLength({ min: 6 }).run(req);
+  const errors = validationResult(req);
+  //if validation fails, flash an error.
+  if (!errors.isEmpty()) {
+    req.flash("error", 'Email or password validation failed');
+    return res.redirect("/register");
+  }  
   //get email&password from body then correct it with the registered userbase.
   const {email, password} = req.body
   const user = await User.findOne({ email: email })

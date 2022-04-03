@@ -1,4 +1,10 @@
 <%- include('../partials/header')%>
+<style>
+    input:placeholder-shown {
+        font-style: italic;
+    }
+
+</style>
 
 <body class="d-flex flex-column vh-100">
     <%- include('../partials/navbar')%>
@@ -13,14 +19,16 @@
                     <form action="/register" method="POST" class="validate" novalidate>
                         <div class="mb-3">
                             <label class="form-label" for="email">Email</label>
-                            <input class="form-control" type="email" id="email" name="email" required>
+                            <input class="form-control" type="email" id="email" name="email"
+                                placeholder="Write your email" required>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="password">Password</label>
-                            <input class="form-control" type="password" id="password" name="password" required>
+                            <input class="form-control" type="password" id="password" name="password"
+                                placeholder="Min 6 characters" required>
                             <div class="valid-feedback">
                                 Looks good!
                             </div>
