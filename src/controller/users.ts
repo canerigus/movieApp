@@ -37,7 +37,7 @@ export const register: RequestHandler = async (req, res) => {
   //if email is registered before, flash an error.
   if (existingEmail) {
     req.flash('error', 'Email already registered!')
-    return res.status(400).redirect('/register')
+    return res.redirect('/register')
   }
   try {
     //hash the given password using bcrypt.
@@ -79,8 +79,8 @@ export const login: RequestHandler = async (req, res) => {
   const errors = validationResult(req);
   //if validation fails, flash an error.
   if (!errors.isEmpty()) {
-    req.flash("error", 'Email or password validation failed');
-    return res.redirect("/register");
+    req.flash("error", 'Wrong email or password');
+    return res.redirect("/login");
   }  
   //get email&password from body then correct it with the registered userbase.
   const {email, password} = req.body
@@ -88,7 +88,7 @@ export const login: RequestHandler = async (req, res) => {
   //if user doesnt exist in database, redirect.
   if (!user) {
     req.flash('error', 'User not found!')
-    return res.status(400).redirect('/login')
+    return res.redirect('/login')
   }
   try {
     //if user exists in database, then compare the given info with the one in db. in other words, check if the password is correct with bcrypt compare. 
