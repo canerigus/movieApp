@@ -1,4 +1,4 @@
-# Cinephiles MovieApp by Caner IGUS
+# Cinephiles MovieApp
 
 ## Description
 CRUD Movie App where users can register an account or login via Google & Facebook then search for their favorite Movies & Actors to share with others.
