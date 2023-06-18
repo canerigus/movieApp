@@ -1,4 +1,8 @@
 import { createConnection } from "typeorm"
+import { Actor } from "../../entity/Actors";
+import { Movie } from "../../entity/Movies";
+import { Review } from "../../entity/Review";
+import { User } from "../../entity/User";
 //typeorm database connection fn. initiated in app.ts
 export const connectDatabase = async () => {
   try {
@@ -11,6 +15,7 @@ export const connectDatabase = async () => {
       synchronize: true,
       logging: false,
       entities: [
+        Actor, Movie, Review, User,
         "dist/entity/**/*.js"
       ]
     });
